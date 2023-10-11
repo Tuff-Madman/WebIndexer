@@ -50,8 +50,7 @@ class TextSpider(scrapy.Spider):
 
     def parse(self, response):
         for paragraph in response.css('p').xpath('normalize-space()').getall():
-            paragraph = is_valid_paragraph(paragraph)
-            if paragraph:
+            if paragraph := is_valid_paragraph(paragraph):
                 yield {'paragraphs': paragraph, 'link': response.request.url}
 
         for link in response.xpath('.//@href').getall():

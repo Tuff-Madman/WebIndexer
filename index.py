@@ -9,8 +9,7 @@ from helper import get_keys
 
 
 def load_dataset(data_file) -> pd.DataFrame:
-    df = pd.read_csv('data/' + data_file)[:1000]
-    return df
+    return pd.read_csv('data/' + data_file)[:1000]
 
 
 def get_embeds_Cohere(text_list) -> np.ndarray:
@@ -105,12 +104,13 @@ def get_closest_paragraphs(df: pd.DataFrame, index: AnnoyIndex, query: str, n: i
     similar_item_ids = index.get_nns_by_vector(query_embed[0], n,
                                                include_distances=True)
 
-    # Format and print the text and distances
-    results = pd.DataFrame(data={'texts': df.iloc[similar_item_ids[0]]['paragraphs'],
-                                 'links': df.iloc[similar_item_ids[0]]['link'],
-                                 'distance': similar_item_ids[1]})
-
-    return results
+    return pd.DataFrame(
+        data={
+            'texts': df.iloc[similar_item_ids[0]]['paragraphs'],
+            'links': df.iloc[similar_item_ids[0]]['link'],
+            'distance': similar_item_ids[1],
+        }
+    )
 
 
 def test():
