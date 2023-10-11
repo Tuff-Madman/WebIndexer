@@ -1,10 +1,10 @@
 
 def construct_context(df, threshold):
-    context = ""
-    for index, row in df.iterrows():
-        if row['distance'] < threshold:
-            context += row['texts']
-    return context
+    return "".join(
+        row['texts']
+        for index, row in df.iterrows()
+        if row['distance'] < threshold
+    )
 
 
 def post(context, question):

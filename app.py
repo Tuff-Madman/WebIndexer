@@ -18,10 +18,7 @@ st.title("Web Indexer")
 
 
 def get_files():
-    files = []
-    for file in os.listdir("data"):
-        if file.endswith(".csv"):
-            files.append(file[:-4])
+    files = [file[:-4] for file in os.listdir("data") if file.endswith(".csv")]
     files.sort(reverse=True)
     return files
 
